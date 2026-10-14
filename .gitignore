@@ -1,0 +1,30 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Node / React
+node_modules/
+dist/
+build/
+
+# Local databases, logs and IDE files
+*.sqlite3
+*.db
+*.log
+.vscode/
+.idea/
+
+# Runtime uploads; keep the folder guide
+/uploads/*
+!/uploads/README.md
+!/uploads/.gitignore
