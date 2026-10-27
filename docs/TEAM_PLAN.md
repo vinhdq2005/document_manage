@@ -34,6 +34,24 @@ Mục tiêu: ba người có thể triển khai song song sau khi thống nhất
 4. **Làm song song:** frontend xây UI; backend xây API và xử lý lưu tệp; cơ sở dữ liệu hoàn thiện migration, seed và hướng dẫn backup.
 5. **Tích hợp:** chạy các luồng upload, tìm kiếm, cấp/thu hồi quyền, download với ít nhất hai phòng ban; sửa lệch API/schema trước khi mở rộng tính năng.
 
+## Lịch triển khai đề xuất (10 ngày làm việc)
+
+| Mốc | Backend | Frontend | MySQL | Kết quả chung |
+| --- | --- | --- | --- | --- |
+| Ngày 1–2: chốt thiết kế | Chốt quy tắc quyền, API và mẫu lỗi với hai người còn lại | Chốt màn hình, luồng thao tác và dữ liệu mock theo API | Chốt sơ đồ bảng, khóa ngoại, kiểu dữ liệu và truy vấn quyền | Thống nhất các quyết định còn mở trong `PROJECT_SPEC.md`, schema và ví dụ request/response trước khi triển khai độc lập |
+| Ngày 3–5: xây nền | Làm đăng nhập, `/auth/me`, API danh sách/chi tiết và kiểm tra quyền | Làm đăng nhập, danh sách/tìm kiếm/lọc, chi tiết bằng mock | Bàn giao migration đầu tiên, seed hai phòng ban và hướng dẫn chạy | Backend chạy được trên schema thật; frontend dùng cùng cấu trúc dữ liệu với API |
+| Ngày 6–8: hoàn thiện luồng | Làm upload/download, quản trị người dùng/phòng ban, cấp/thu hồi quyền; kiểm thử trường hợp bị từ chối | Nối API thật; làm upload/download và giao diện quản trị quyền; xử lý lỗi | Tối ưu chỉ mục theo truy vấn thực tế, kiểm thử migration và viết hướng dẫn backup/restore | Các luồng chính chạy xuyên suốt React → FastAPI → MySQL và `uploads/` |
+| Ngày 9–10: tích hợp và bàn giao | Sửa lỗi API, xác nhận quyền ở mọi endpoint, hoàn thiện README | Sửa lỗi giao diện, xác nhận trạng thái tải và lỗi, hoàn thiện README | Kiểm tra seed, backup/restore cùng `uploads/`, hoàn thiện README | Demo và kiểm tra tiêu chí hoàn thành trong `PROJECT_SPEC.md` |
+
+Lịch trên là ước lượng để chia việc; nếu chỉ làm bán thời gian, giữ nguyên thứ tự mốc và điều chỉnh số ngày sau khi cả nhóm ước lượng. Mỗi ngày dành một lần đồng bộ ngắn để báo tiến độ, vướng mắc và thay đổi API/schema.
+
+## Việc đầu tiên và tiêu chí nhận bàn giao
+
+- **Backend:** mở PR cho bộ khung FastAPI và hợp đồng API; bàn giao OpenAPI có ví dụ đăng nhập, phân trang/tìm kiếm, upload dạng multipart, download và mã lỗi `401/403/404`. Hoàn thành khi API kiểm tra quyền trên danh sách, chi tiết và download, kể cả khi gọi trực tiếp không qua giao diện.
+- **Frontend:** mở PR cho cấu trúc React, màn hình đăng nhập, danh sách/tìm kiếm, chi tiết và lớp gọi API dùng cấu hình môi trường. Hoàn thành khi người dùng có thể upload/download qua backend và thấy rõ tiến độ, lỗi và trạng thái không có quyền.
+- **MySQL:** mở PR cho migration, seed và tài liệu schema. Hoàn thành khi một database mới có thể áp dụng migration/seed theo README, có ít nhất hai phòng ban và dữ liệu để thử cấp rồi thu hồi quyền.
+- **Cả nhóm:** chạy demo bằng tài khoản phòng A, phòng B và quản trị viên; xác nhận B không xem/tải được tài liệu A trước khi cấp quyền, xem/tải được sau khi cấp và bị từ chối ngay sau khi thu hồi. Kiểm tra thêm người không có quyền upload bị từ chối qua API.
+
 ## Quy ước bàn giao
 
 - Mọi thay đổi liên quan quyền phải có ví dụ người dùng/phòng ban nào được phép và bị từ chối.
