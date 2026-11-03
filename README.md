@@ -1,6 +1,6 @@
 # Quản lý tài liệu nội bộ công ty
 
-Ứng dụng web để lưu trữ, tìm kiếm và chia sẻ tài liệu giữa các phòng ban trong công ty. Người dùng được đọc tài liệu của phòng ban mình; phòng ban khác chỉ được đọc khi được cấp quyền.
+Ứng dụng web để lưu trữ, tìm kiếm và chia sẻ tài liệu giữa các phòng ban trong công ty. Người dùng đọc được tài liệu của phòng mình; tài liệu ngoài phòng chỉ được đọc khi admin cấp riêng cho người đó. Giám đốc đọc toàn bộ tài liệu, còn admin quản lý quyền nhưng không đọc nội dung.
 
 > Dự án đang ở giai đoạn thiết kế. Repository hiện chưa có mã nguồn chạy được. Tài liệu này là điểm bắt đầu để ba người phụ trách frontend, backend và cơ sở dữ liệu triển khai cùng một phạm vi.
 
@@ -20,7 +20,7 @@ React chỉ gọi FastAPI. FastAPI quyết định người dùng có quyền xe
 - Đăng nhập, đăng xuất và quản lý người dùng.
 - Xem danh sách, tìm kiếm theo tên/mô tả và lọc theo phòng ban, loại tài liệu.
 - Tải tài liệu lên và tải tài liệu được phép xem xuống.
-- Quản trị viên quản lý phòng ban, người dùng và cấp/thu hồi quyền đọc cho phòng ban khác.
+- Quản trị viên quản lý phòng ban, người dùng và cấp/thu hồi quyền đọc tài liệu ngoài phòng cho từng người.
 - Ghi lại người tải lên, thời gian tạo và thông tin tệp.
 
 Quy tắc quyền chi tiết, mô hình dữ liệu dự kiến, hợp đồng API và tiêu chí hoàn thành nằm trong [Tài liệu dự án](docs/PROJECT_SPEC.md). Phần việc của ba người nằm trong [Kế hoạch phân công](docs/TEAM_PLAN.md); cách làm trên ba máy nằm trong [Hướng dẫn phối hợp](docs/WORKFLOW.md) và [Hướng dẫn Git](docs/GIT_GUIDE.md).
@@ -50,7 +50,7 @@ Mỗi thành viên clone cùng một repository, cài MySQL Community Edition tr
 ## Quyết định cần xác nhận trước khi lập trình
 
 - Giới hạn dung lượng và loại tệp được phép tải lên.
-- Ai được tải tài liệu lên, sửa/xóa tài liệu và cấp quyền đọc liên phòng ban.
+- Chính sách chi tiết cho sửa/xóa tài liệu và trường hợp admin upload nhưng không có quyền đọc.
 - Người dùng có thuộc nhiều phòng ban hay chỉ một phòng ban trong giai đoạn đầu.
 
 Các lựa chọn tạm thời để nhóm có thể thiết kế được ghi rõ trong tài liệu dự án; chúng chưa phải yêu cầu nghiệp vụ cuối cùng.

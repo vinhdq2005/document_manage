@@ -4,7 +4,7 @@ Mục tiêu: ba người có thể triển khai song song sau khi thống nhất
 
 ## Người 1 — Frontend (React)
 
-**Phụ trách:** giao diện đăng nhập; danh sách, tìm kiếm và lọc tài liệu; trang chi tiết; upload/download; màn hình quản trị người dùng, phòng ban và quyền đọc liên phòng ban.
+**Phụ trách:** giao diện đăng nhập; danh sách, tìm kiếm và lọc tài liệu; trang chi tiết; upload/download; màn hình quản trị người dùng, phòng ban và quyền đọc ngoài phòng theo từng người dùng.
 
 **Bàn giao:** ứng dụng React, client gọi API, xử lý trạng thái tải tệp/lỗi/không có quyền, hướng dẫn chạy frontend. Giao diện ẩn thao tác không được phép dựa trên dữ liệu `/auth/me`, nhưng backend vẫn là nơi kiểm tra quyền cuối cùng.
 
@@ -50,7 +50,7 @@ Lịch trên là ước lượng để chia việc; nếu chỉ làm bán thời
 - **Backend:** mở PR cho bộ khung FastAPI và hợp đồng API; bàn giao OpenAPI có ví dụ đăng nhập, phân trang/tìm kiếm, upload dạng multipart, download và mã lỗi `401/403/404`. Hoàn thành khi API kiểm tra quyền trên danh sách, chi tiết và download, kể cả khi gọi trực tiếp không qua giao diện.
 - **Frontend:** mở PR cho cấu trúc React, màn hình đăng nhập, danh sách/tìm kiếm, chi tiết và lớp gọi API dùng cấu hình môi trường. Hoàn thành khi người dùng có thể upload/download qua backend và thấy rõ tiến độ, lỗi và trạng thái không có quyền.
 - **MySQL:** mở PR cho migration, seed và tài liệu schema. Hoàn thành khi một database mới có thể áp dụng migration/seed theo README, có ít nhất hai phòng ban và dữ liệu để thử cấp rồi thu hồi quyền.
-- **Cả nhóm:** chạy demo bằng tài khoản phòng A, phòng B và quản trị viên; xác nhận B không xem/tải được tài liệu A trước khi cấp quyền, xem/tải được sau khi cấp và bị từ chối ngay sau khi thu hồi. Kiểm tra thêm người không có quyền upload bị từ chối qua API.
+- **Cả nhóm:** chạy demo bằng tài khoản phòng A, hai người phòng B, giám đốc và admin; xác nhận chỉ người B được admin cấp quyền xem/tải được tài liệu A, người B còn lại vẫn bị từ chối, và quyền mất hiệu lực ngay sau khi thu hồi. Xác nhận giám đốc đọc được toàn bộ, admin không tải được tài liệu, người không có quyền upload bị từ chối qua API.
 
 ## Quy ước bàn giao
 
