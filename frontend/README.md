@@ -1,19 +1,16 @@
-# Frontend — React
+# React + Vite
 
-Người phụ trách frontend làm việc trong thư mục này. Xem [đặc tả chung](../docs/PROJECT_SPEC.md) và [quy trình ba máy](../docs/WORKFLOW.md) trước khi tạo ứng dụng.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## Công việc
+Currently, two official plugins are available:
 
-1. Tạo ứng dụng React trong thư mục `frontend/`; đặt mã nguồn trong `src/`.
-2. Làm các màn hình: đăng nhập, danh sách/tìm kiếm, chi tiết, upload/download, quản trị người dùng/phòng ban và cấp quyền đọc.
-3. Tạo một lớp gọi API tập trung; địa chỉ API phải cấu hình theo môi trường, không viết cố định vào từng component.
-4. Dùng dữ liệu giả theo cùng schema API khi backend chưa sẵn sàng; bỏ dữ liệu giả khi tích hợp.
-5. Hiển thị lỗi và trạng thái tải tệp rõ ràng. Ẩn thao tác không phù hợp theo `/auth/me`, nhưng không xem đây là biện pháp bảo mật.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Bàn giao và phối hợp
+## React Compiler
 
-- Thống nhất request/response, mã lỗi và cách gửi phiên đăng nhập với backend.
-- Không đọc trực tiếp `uploads/` hoặc kết nối MySQL từ trình duyệt.
-- Cập nhật file này bằng yêu cầu phiên bản Node.js, lệnh cài đặt, lệnh chạy và cấu hình API khi ứng dụng React đã được tạo.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-Hiện chưa có mã nguồn frontend nên chưa có lệnh chạy.
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
