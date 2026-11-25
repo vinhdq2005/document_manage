@@ -1,39 +1,48 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { ROLE_LABELS } from "../utils";
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
+import { roleLabel } from '../utils/format';
 
 export default function Layout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  function handleLogout() {
+  const links = user.is_admin
+    ? [
+        { to: '/admin/grants', text: 'Quyền đọc tài liệu' },
+        { to: '/admin/users', text: 'Người dùng' },
+        { to: '/admin/departments', text: 'Phòng ban' },
+      ]
+    : [
+        { to: '/documents', text: 'Tài liệu', end: true },
+        ...(user.can_upload ? [{ to: '/documents/new', text: 'Tải lên' }] : []),
+      ];
+
+  const onLogout = () => {
     logout();
-    navigate("/login");
-  }
+    navigate('/login', { replace: true });
+  };
 
   return (
-    <div>
-      <header className="topbar">
-        <strong>Quản lý tài liệu</strong>
-        <nav>
-          {!user.is_admin && <NavLink to="/documents">Tài liệu</NavLink>}
-          {!user.is_admin && user.can_upload && <NavLink to="/upload">Tải lên</NavLink>}
-          {user.is_admin && (
-            <>
-              <NavLink to="/admin/users">Người dùng</NavLink>
-              <NavLink to="/admin/departments">Phòng ban</NavLink>
-              <NavLink to="/admin/grants">Cấp quyền đọc</NavLink>
-            </>
-          )}
+    <div className="shell">
+      <aside className="side">
+        <div className="brand">
+          <span className="brand-mark" aria-hidden="true" />
+          <span>Kho tài liệu</span>
+        </div>
+        <nav className="side-nav" aria-label="Menu chính">
+          {links.map((l) => (
+            <NavLink key={l.to} to={l.to} end={l.end} className={({ isActive }) => `side-link ${isActive ? 'active' : ''}`}>
+              {l.text}
+            </NavLink>
+          ))}
         </nav>
-        <div className="spacer" />
-        <span className="who">
-          {user.full_name} ({user.is_admin ? "Quản trị viên" : ROLE_LABELS[user.role]}
-          {user.department_name ? ` – ${user.department_name}` : ""})
-        </span>
-        <button onClick={handleLogout}>Đăng xuất</button>
-      </header>
-      <main className="container">
+        <div className="side-user">
+          <div className="side-user-name">{user.full_name}</div>
+          <div className="side-user-meta">{roleLabel(user)}{user.department_name ? ` – ${user.department_name}` : ''}</div>
+          <button type="button" className="side-logout" onClick={onLogout}>Đăng xuất</button>
+        </div>
+      </aside>
+      <main className="main">
         <Outlet />
       </main>
     </div>
